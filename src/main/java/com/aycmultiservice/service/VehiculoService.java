@@ -1,5 +1,7 @@
 package com.aycmultiservice.service;
 
+import com.aycmultiservice.dto.VehiculoDTO;
+import com.aycmultiservice.dto.VehiculoRequestDTO;
 import com.aycmultiservice.model.Cliente;
 import com.aycmultiservice.model.Vehiculo;
 import com.aycmultiservice.repository.ClienteRepository;
@@ -7,6 +9,7 @@ import com.aycmultiservice.repository.VehiculoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VehiculoService {
@@ -19,16 +22,44 @@ public class VehiculoService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Vehiculo addVehiculoToCliente(Long clienteId, Vehiculo vehiculo){
+    public VehiculoDTO addVehiculoToCliente(Long clienteId, VehiculoRequestDTO vehiculoRequest){
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id " + clienteId));
+
+        Vehiculo vehiculo = new Vehiculo();
+        vehiculo.setPatente(vehiculoRequest.getPatente());
+        vehiculo.setMarca(vehiculoRequest.getMarca());
+        vehiculo.setModelo(vehiculoRequest.getModelo());
+        vehiculo.setAnio(vehiculoRequest.getAnio());
         vehiculo.setCliente(cliente);
-        return vehiculoRepository.save(vehiculo);
+
+        Vehiculo saved = vehiculoRepository.save(vehiculo);
+        return mapToDTO(saved);
     }
 
-    public List<Vehiculo> getVehiculosByCliente(Long clienteId){
+    public List<VehiculoDTO> getVehiculosByCliente(Long clienteId){
         Cliente cliente = clienteRepository.findById(clienteId)
             .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id " + clienteId));
-        return cliente.getVehiculos();
+        return cliente.getVehiculos().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<VehiculoDTO> getAllVehiculos(){
+        return vehiculoRepository.findAll().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // --- Mapper ---
+    private VehiculoDTO mapToDTO(Vehiculo vehiculo){
+        return new VehiculoDTO(
+            vehiculo.getId(),
+            vehiculo.getPatente(),
+            vehiculo.getMarca(),
+            vehiculo.getModelo(),
+            vehiculo.getAnio(),
+            vehiculo.getCliente().getDni()
+        );
     }
 }

@@ -1,5 +1,7 @@
 package com.aycmultiservice.controller;
 
+import com.aycmultiservice.dto.VehiculoDTO;
+import com.aycmultiservice.dto.VehiculoRequestDTO;
 import com.aycmultiservice.model.Vehiculo;
 import com.aycmultiservice.repository.VehiculoRepository;
 import com.aycmultiservice.service.VehiculoService;
@@ -12,28 +14,26 @@ import java.util.List;
 public class VehiculoController {
 
     private final VehiculoService vehiculoService;
-    private final VehiculoRepository vehiculoRepository;
 
-    public VehiculoController(VehiculoService vehiculoService,  VehiculoRepository vehiculoRepository) {
+    public VehiculoController(VehiculoService vehiculoService) {
         this.vehiculoService = vehiculoService;
-        this.vehiculoRepository = vehiculoRepository;
     }
 
     // Listar todos los vehículos sin importar el cliente
     @GetMapping
-    public List<Vehiculo> getAllVehiculos(){
-        return vehiculoRepository.findAll();
+    public List<VehiculoDTO> getAllVehiculos(){
+        return vehiculoService.getAllVehiculos();
     }
 
     // Crear un vehículo asociado a un cliente
     @PostMapping("/{clienteId}")
-    public Vehiculo addVehiculo(@PathVariable Long clienteId, @RequestBody Vehiculo vehiculo){
-        return vehiculoService.addVehiculoToCliente(clienteId, vehiculo);
+    public VehiculoDTO addVehiculo(@PathVariable Long clienteId, @RequestBody VehiculoRequestDTO vehiculoRequest){
+        return vehiculoService.addVehiculoToCliente(clienteId, vehiculoRequest);
     }
 
     // Listar vehículos de un cliente
     @GetMapping("/cliente/{clienteId}")
-    public List<Vehiculo> getVehiculosByCliente(@PathVariable Long clienteId) {
+    public List<VehiculoDTO> getVehiculosByCliente(@PathVariable Long clienteId) {
         return vehiculoService.getVehiculosByCliente(clienteId);
     }
 }

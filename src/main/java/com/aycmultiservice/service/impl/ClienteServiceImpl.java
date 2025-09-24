@@ -1,5 +1,6 @@
 package com.aycmultiservice.service.impl;
 
+import com.aycmultiservice.dto.ClienteDTO;
 import com.aycmultiservice.model.Cliente;
 import com.aycmultiservice.repository.ClienteRepository;
 import com.aycmultiservice.service.ClienteService;
@@ -18,27 +19,33 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente crearCliente(Cliente cliente){
-        return clienteRepository.save(cliente);
+    public ClienteDTO crearCliente(Cliente cliente){
+        Cliente saved = clienteRepository.save(cliente);
+        return mapToDTO(saved);
     }
 
     @Override
-    public List<Cliente> listarClientes() {
-        return clienteRepository.findAll();
+    public List<ClienteDTO> listarClientes() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
     @Override
-    public Optional<Cliente> obtenerClientePorId(Long id) {
-        return clienteRepository.findById(id);
+    public Optional<ClienteDTO> obtenerClientePorId(Long id) {
+        return clienteRepository.findById(id)
+                .map(this::mapToDTO);
     }
 
     @Override
-    public Optional<Cliente> obtenerClientePorDni(String dni) {
-        return clienteRepository.findByDni(dni);
+    public Optional<ClienteDTO> obtenerClientePorDni(String dni) {
+        return clienteRepository.findByDni(dni)
+                .map(this::mapToDTO);
     }
 
     @Override
-    public Cliente actualizarCliente(Long id, Cliente cliente) {
+    public ClienteDTO actualizarCliente(Long id, Cliente cliente) {
         return clienteRepository.findById(id)
                 .map(c -> {
                     c.setNombre(cliente.getNombre());
@@ -46,7 +53,8 @@ public class ClienteServiceImpl implements ClienteService {
                     c.setDni(cliente.getDni());
                     c.setEmail(cliente.getEmail());
                     c.setTelefono(cliente.getTelefono());
-                    return clienteRepository.save(c);
+                    Cliente updated = clienteRepository.save(c);
+                    return mapToDTO(updated);
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
     }
@@ -54,5 +62,16 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void eliminarCliente(Long id) {
         clienteRepository.deleteById(id);
+    }
+
+    private ClienteDTO mapToDTO(Cliente cliente) {
+        return new ClienteDTO(
+                cliente.getId(),
+                cliente.getNombre(),
+                cliente.getApellido(),
+                cliente.getDni(),
+                cliente.getEmail(),
+                cliente.getTelefono()
+        );
     }
 }
