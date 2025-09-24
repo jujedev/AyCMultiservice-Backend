@@ -13,7 +13,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000","http://127.0.0.1:3000", "http://192.168.1.10:3000") // tu frontend
+                        .allowedOrigins("http://localhost:3000","http://127.0.0.1:3000", "http://192.168.1.10:3000", "http://192.168.11.104:3000") // tu frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowCredentials(true);
             }
