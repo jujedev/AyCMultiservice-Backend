@@ -3,7 +3,6 @@ package com.aycmultiservice.service.impl;
 import com.aycmultiservice.dto.ClienteDTO;
 import com.aycmultiservice.dto.VehiculoDTO;
 import com.aycmultiservice.model.Cliente;
-import com.aycmultiservice.model.Vehiculo;
 import com.aycmultiservice.repository.ClienteRepository;
 import com.aycmultiservice.service.ClienteService;
 import org.springframework.stereotype.Service;
