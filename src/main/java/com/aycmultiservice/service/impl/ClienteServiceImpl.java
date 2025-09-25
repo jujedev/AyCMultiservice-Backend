@@ -1,7 +1,9 @@
 package com.aycmultiservice.service.impl;
 
 import com.aycmultiservice.dto.ClienteDTO;
+import com.aycmultiservice.dto.VehiculoDTO;
 import com.aycmultiservice.model.Cliente;
+import com.aycmultiservice.model.Vehiculo;
 import com.aycmultiservice.repository.ClienteRepository;
 import com.aycmultiservice.service.ClienteService;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteDTO crearCliente(Cliente cliente){
+        if(cliente.getVehiculos() != null){
+            cliente.getVehiculos().forEach(v -> v.setCliente(cliente));
+        }
         Cliente saved = clienteRepository.save(cliente);
         return mapToDTO(saved);
     }
@@ -53,6 +58,13 @@ public class ClienteServiceImpl implements ClienteService {
                     c.setDni(cliente.getDni());
                     c.setEmail(cliente.getEmail());
                     c.setTelefono(cliente.getTelefono());
+
+                    if (cliente.getVehiculos() != null) {
+                        c.getVehiculos().clear();
+                        cliente.getVehiculos().forEach(v -> v.setCliente(cliente));
+                        c.getVehiculos().addAll(cliente.getVehiculos());
+                    }
+
                     Cliente updated = clienteRepository.save(c);
                     return mapToDTO(updated);
                 })
@@ -71,7 +83,19 @@ public class ClienteServiceImpl implements ClienteService {
                 cliente.getApellido(),
                 cliente.getDni(),
                 cliente.getEmail(),
-                cliente.getTelefono()
+                cliente.getTelefono(),
+                cliente.getVehiculos() != null
+                    ? cliente.getVehiculos().stream()
+                        .map(v -> new VehiculoDTO(
+                            v.getId(),
+                            v.getPatente(),
+                            v.getMarca(),
+                            v.getModelo(),
+                            v.getAnio(),
+                            cliente.getDni()
+                            ))
+                            .toList()
+                    :   List.of()
         );
     }
 }

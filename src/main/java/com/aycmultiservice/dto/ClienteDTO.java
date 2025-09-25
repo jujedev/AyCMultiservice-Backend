@@ -1,5 +1,8 @@
 package com.aycmultiservice.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClienteDTO {
     private Long id;
     private String nombre;
@@ -7,15 +10,18 @@ public class ClienteDTO {
     private String dni;
     private String email;
     private String telefono;
+    private List<VehiculoDTO> vehiculos;
 
     // --- Constructor ---
-    public ClienteDTO(Long id, String nombre, String apellido, String dni, String email, String telefono) {
+    public ClienteDTO(Long id, String nombre, String apellido, String dni,
+                      String email, String telefono, List<VehiculoDTO> vehiculos) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.email = email;
         this.telefono = telefono;
+        this.vehiculos = vehiculos;
     }
 
     // --- Getters y Setters ---
@@ -36,4 +42,7 @@ public class ClienteDTO {
 
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
+
+    public List<VehiculoDTO> getVehiculos() { return vehiculos; }
+    public void setVehiculos(List<VehiculoDTO> vehiculos) { this.vehiculos = vehiculos; }
 }
