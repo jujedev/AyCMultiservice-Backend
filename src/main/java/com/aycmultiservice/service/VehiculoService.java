@@ -51,6 +51,13 @@ public class VehiculoService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteVehiculo(Long vehiculoId) {
+        if (!vehiculoRepository.existsById(vehiculoId)) {
+            throw new RuntimeException("Vehículo no encontrado");
+        }
+        vehiculoRepository.deleteById(vehiculoId);
+    }
+
     // --- Mapper ---
     private VehiculoDTO mapToDTO(Vehiculo vehiculo){
         return new VehiculoDTO(

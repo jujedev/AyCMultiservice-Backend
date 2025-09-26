@@ -36,4 +36,10 @@ public class VehiculoController {
     public List<VehiculoDTO> getVehiculosByCliente(@PathVariable Long clienteId) {
         return vehiculoService.getVehiculosByCliente(clienteId);
     }
+
+    // Eliminar un vehículo por ID
+    @DeleteMapping("/{vehiculoId}")
+    public void deleteVehiculo(@PathVariable Long vehiculoId) {
+        vehiculoService.deleteVehiculo(vehiculoId);
+    }
 }
