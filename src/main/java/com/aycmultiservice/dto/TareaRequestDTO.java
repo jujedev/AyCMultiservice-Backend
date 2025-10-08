@@ -1,32 +1,11 @@
-package com.aycmultiservice.model;
+package com.aycmultiservice.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "tareas")
-public class Tarea {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class TareaRequestDTO {
     private String descripcion;
     private Double costo;
     private Integer horas;
     private String estado;
-
-    @ManyToOne
-    @JoinColumn(name = "tarjeta_id", nullable = false)
-    private Tarjeta tarjeta;
-
-    public Tarea() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Long tarjetaId;
 
     public String getDescripcion() {
         return descripcion;
@@ -60,11 +39,11 @@ public class Tarea {
         this.estado = estado;
     }
 
-    public Tarjeta getTarjeta() {
-        return tarjeta;
+    public Long getTarjetaId() {
+        return tarjetaId;
     }
 
-    public void setTarjeta(Tarjeta tarjeta) {
-        this.tarjeta = tarjeta;
+    public void setTarjetaId(Long tarjetaId) {
+        this.tarjetaId = tarjetaId;
     }
 }
