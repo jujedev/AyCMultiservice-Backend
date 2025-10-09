@@ -1,11 +1,16 @@
 server:
   address: 0.0.0.0
   port: 8080
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   application:
     name: energy-monitor
   datasource:
-    url: jdbc:mysql://localhost:3306/aycmultiservice?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://192.168.11.129:3306/aycmultiservice?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: Autom_2
     password: Autom4799+
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,3 +21,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+manuales:
+  upload-dir: ./uploads/manuales
