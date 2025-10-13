@@ -5,6 +5,8 @@ public class VehiculoRequestDTO {
     private String marca;
     private String modelo;
     private int anio;
+    private Long kilometros;
+    private Long clienteId;
 
     // Getters y setters
     public String getPatente() { return patente; }
@@ -15,4 +17,8 @@ public class VehiculoRequestDTO {
     public void setModelo(String modelo) { this.modelo = modelo; }
     public int getAnio() { return anio; }
     public void setAnio(int anio) { this.anio = anio; }
+    public Long getClienteId() { return clienteId; }
+    public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
+    public Long getKilometros() { return kilometros; }
+    public void setKilometros(Long kilometros) { this.kilometros = kilometros; }
 }

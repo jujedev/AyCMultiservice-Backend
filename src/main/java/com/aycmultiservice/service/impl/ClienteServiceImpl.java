@@ -91,9 +91,11 @@ public class ClienteServiceImpl implements ClienteService {
                             v.getMarca(),
                             v.getModelo(),
                             v.getAnio(),
+                            v.getKilometros(),
                             cliente.getDni(),
                             cliente.getNombre(),
-                            cliente.getApellido()
+                            cliente.getApellido(),
+                            cliente.getId()
                             ))
                             .toList()
                     :   List.of()
