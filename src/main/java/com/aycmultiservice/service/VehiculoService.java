@@ -66,7 +66,9 @@ public class VehiculoService {
             vehiculo.getMarca(),
             vehiculo.getModelo(),
             vehiculo.getAnio(),
-            vehiculo.getCliente().getDni()
+            vehiculo.getCliente().getDni(),
+            vehiculo.getCliente().getNombre(),
+            vehiculo.getCliente().getApellido()
         );
     }
 }
