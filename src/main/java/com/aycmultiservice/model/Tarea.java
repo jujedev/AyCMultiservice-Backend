@@ -18,9 +18,18 @@ public class Tarea {
     private Long id;
 
     private String descripcion;
-    private Double costo;
+
+    private String mecanicoAsignado;
+
     private Integer horas;
-    private String estado;
+
+    private Double costoManoObra;
+
+    private Double costoRepuestos;
+
+    private String estado; // Pendiente, En diagnóstico, En espera de repuestos...
+
+    private String observaciones;
 
     @ManyToOne
     @JoinColumn(name = "tarjeta_id", nullable = false)
