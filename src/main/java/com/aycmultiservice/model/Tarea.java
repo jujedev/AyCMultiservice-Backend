@@ -1,10 +1,8 @@
 package com.aycmultiservice.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "tareas")
@@ -27,11 +25,12 @@ public class Tarea {
 
     private Double costoRepuestos;
 
-    private String estado; // Pendiente, En diagnóstico, En espera de repuestos...
+    private String estado;
 
     private String observaciones;
 
     @ManyToOne
     @JoinColumn(name = "tarjeta_id", nullable = false)
+    @JsonBackReference
     private Tarjeta tarjeta;
 }

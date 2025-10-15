@@ -9,8 +9,10 @@ import lombok.*;
 public class TareaDTO {
     private Long id;
     private String descripcion;
-    private Double costo;
+    private String mecanicoAsignado;
     private Integer horas;
+    private Double costoManoObra;
+    private Double costoRepuestos;
     private String estado;
-    private String numeroTarjeta;
+    private String observaciones;
 }

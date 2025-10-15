@@ -1,6 +1,8 @@
 package com.aycmultiservice.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.*;
 
 @Data
@@ -23,4 +25,5 @@ public class TarjetaDTO {
     private Double presupuestoEstimado;
     private Double montoFinal;
     private String mecanicoAsignado;
+    private List<TareaDTO> tareas;
 }

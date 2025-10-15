@@ -19,4 +19,5 @@ public class TarjetaRequestDTO {
     private Integer kilometraje;
     private Double presupuestoEstimado;
     private String mecanicoAsignado;
+    private String estado;
 }

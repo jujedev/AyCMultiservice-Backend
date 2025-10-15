@@ -8,8 +8,10 @@ import lombok.*;
 @Builder
 public class TareaRequestDTO {
     private String descripcion;
-    private Double costo;
+    private String mecanicoAsignado;
     private Integer horas;
+    private Double costoManoObra;
+    private Double costoRepuestos;
     private String estado;
-    private Long tarjetaId;
+    private String observaciones;
 }
